@@ -64,18 +64,7 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>core Release Repository</name>
-            <url>http://10.20.55.50:8082/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>core Snapshots Repository</name>
-            <url>http://10.20.55.50:8082/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+     
     <build>
         <resources>
             <resource>
