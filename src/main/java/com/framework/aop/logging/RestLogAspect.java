@@ -4,11 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.framework.base.rest.RestResponse;
-import com.framework.exception.ValidatorException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -59,46 +59,6 @@ public class RestLogAspect extends AbstractLogAspect {
         } catch (Exception e) {
             logger.debug("RestLogAspect doBefore Exception: {}", e.toString());
         }
-    }
-
-    /**
-     * <p>在目标方法抛出异常后，记录方法名和异常信息。</p>
-     *
-     * @param joinPoint 切入点
-     */
-    //@Around("pointcut()")
-    public Object around(ProceedingJoinPoint joinPoint) {
-        Object result;
-        try {
-            result = joinPoint.proceed();
-        } catch (Throwable t) {
-            try {
-                String methodName = this.getMethodName(joinPoint);
-                Method method = methodMap.get(methodName);
-                String message = (null == t) ? null : t.toString();
-
-                Map<String, Object> content = new LinkedHashMap<String, Object>();
-                content.put("name", methodName);
-                content.put("exception", message);
-                this.record(method, content);
-            } catch (Exception e) {
-                logger.debug("RestLogAspect doAround Exception: {}", e.toString());
-            } finally {
-                result = this.ex2msg(t);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 异常信息转消息
-     *
-     * @return 结果对象
-     */
-    protected RestResponse ex2msg(Throwable t) {
-        RestResponse response = new RestResponse();
-        response.setMessage((null == t) ? null : new String[]{t.getMessage()});
-        return response;
     }
 
     /**
@@ -213,4 +173,8 @@ public class RestLogAspect extends AbstractLogAspect {
         return parameters;
     }
 
+    @Override
+    public Object around(ProceedingJoinPoint pjp) {
+        return null;
+    }
 }

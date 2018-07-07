@@ -3,7 +3,7 @@ package com.framework.aop.boot;
 import com.framework.aop.BaseAspectAfter;
 import com.framework.aop.BaseAspectBefore;
 import com.framework.aop.boot.dynamic.datasource.DatabaseContextHolder;
-import com.framework.base.consts.StringConst;
+import com.framework.core.constant.StringConst;
 import com.framework.exception.SystemException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
